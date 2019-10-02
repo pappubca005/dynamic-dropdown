@@ -1,0 +1,1 @@
+$('#selectbox1').on("change", function() { $.get("get-city/" + $('#selectbox1').val(), function(data) { $('#selectbox2').html(data); }, "html") });

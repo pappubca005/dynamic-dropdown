@@ -1,0 +1,23 @@
+{% extends "myapp/index.html" %} {% block contents %} {% csrf_token %} {% load static %}
+<br> select dropdown<br>
+<div>
+    <a href="{% url 'myapp:add-person' %}" class="top-menu">Person</a>
+</div>country
+<div>
+    <select id="selectbox1">
+    <option>Select country</option>
+    {% for c in country %}
+    <option value="{{ c.id }}">{{c.name }}</option>
+    {% endfor %}</select>
+    <select id="selectbox2">city
+    <option>Select country First</option>
+</select></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    $('#selectbox1').on("change", function() {
+        $.get("get-city/" + $('#selectbox1').val(), function(data) {
+            $("#selectbox2").html(data);
+            console.log(data);
+        }, "html")
+    });
+</script> {% endblock contents %}
