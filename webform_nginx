@@ -1,0 +1,27 @@
+upstream demo_app_server { 
+ # fail_timeout=0 means we always retry an upstream even if it failed 
+ # to return a good HTTP response (in case the Unicorn master nukes a 
+ # single worker for timing out). 
+
+ #server unix:/home/alisha/Documents/djangoweb/webform/.env/run/gunicorn.sock fail_timeout=0; 
+ server localhost:8000 fail_timeout=0; 
+} 
+
+server { 
+
+    listen  80; 
+    server_name 0.0.0.0; 
+
+    access_log  /var/log/nginx/guni-access.log;
+    error_log  /var/log/nginx/guni-error.log info;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/alisha/Documents/djangoweb/webform;
+    }
+
+   location / {
+        include proxy_params;
+        proxy_pass http://demo_app_server;
+    }
+}

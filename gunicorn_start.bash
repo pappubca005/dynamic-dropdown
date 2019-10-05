@@ -1,7 +1,8 @@
 #!/bin/sh
 NAME="webform"                                 # Name of the application 
 DJANGODIR=/home/alisha/Documents/djangoweb/webform            # Django project directory 
-SOCKFILE=/home/alisha/Documents/djangoweb/webform/.env/run/gunicorn.sock # we will communicte using this unix socket 
+# SOCKFILE=/home/alisha/Documents/djangoweb/webform/.env/run/gunicorn.sock # we will communicte using this unix socket 
+SOCKFILE=localhost:8000
 USER=alisha                                       # the user to run as 
 GROUP=alisha                                    # the group to run as 
 NUM_WORKERS=3                                    # how many worker processes should Gunicorn spawn 
@@ -18,8 +19,8 @@ export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
 export PYTHONPATH=$DJANGODIR:$PYTHONPATH 
   
 # Create the run directory if it doesn't exist 
-RUNDIR=$(dirname $SOCKFILE) 
-test -d $RUNDIR || mkdir -p $RUNDIR 
+# RUNDIR=$(dirname $SOCKFILE) 
+# test -d $RUNDIR || mkdir -p $RUNDIR 
   
 # Start your Django Unicorn 
 # Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon) 
